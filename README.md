@@ -1,4 +1,4 @@
-BAMBAM
+PyBambooApi
 ======
 
 Python client for the Atlassian Bamboo API
