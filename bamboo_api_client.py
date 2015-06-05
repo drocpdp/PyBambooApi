@@ -57,7 +57,7 @@ class BambooApiClient(object):
         return self._bamboo_GET(resource, query)
     
     def _GET_plan(self, plan, query=None):
-        resource = 'plan/%s' % project
+        resource = 'plan/%s' % plan
         return self._bamboo_GET(resource, query)
     
     def _GET_projects(self, query=None):
