@@ -1,8 +1,31 @@
 import sys, json, requests, base64
-from config import config
+from configuration import Configuration
 from jira.resources import Project
+import time
 
 class BambooApiClient(object):
+    
+    def __init__(self):
+        self.configs = Configuration()
+        
+    #--- """Configs"""
+    
+    def _get_bamboo_url(self):
+        return self.configs.get_config('bamboo_url')
+    
+    def _get_content_type(self):
+        return self.configs.get_config('content_type')
+    
+    def _get_headers(self):
+        headers = self.configs.get_config('headers')
+        headers_json = json.loads(headers)
+        return headers_json
+    
+    def _get_username(self):
+        return self.configs.get_config('username')
+    
+    def _get_password(self):
+        return self.configs.get_config('password')
     
     #--- """Utilities"""
     
@@ -26,23 +49,6 @@ class BambooApiClient(object):
         else:
             full_url = self._get_bamboo_url() + tail_url
         return full_url
-    
-    #--- """Configs"""
-    
-    def _get_bamboo_url(self):
-        return config['bamboo_url']
-    
-    def _get_content_type(self):
-        return config['content_type']
-    
-    def _get_headers(self):
-        return config['headers']
-    
-    def _get_username(self):
-        return config['username']
-    
-    def _get_password(self):
-        return config['password']
     
     #--- """API Resources"""
     
@@ -85,12 +91,6 @@ class BambooApiClient(object):
     
     def get_result(self, plan=None, query=None):
         return self._GET_result(plan, query)
-    
-    #--- """Main (Test)"""
-    
-    def main(self):
-        print (self.get_all_plans())
-
         
 if __name__=="__main__":
     BambooApiClient().main()
